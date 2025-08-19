@@ -1,0 +1,1 @@
+double click to quickly mark players as drafted during a live draft
