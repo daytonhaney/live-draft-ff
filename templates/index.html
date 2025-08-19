@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Test</h1>
-    <div style="text-align: center; margin-bottom: 20px;">
+    <div id="filter-container">
+        <input type="text" id="name-filter" onkeyup="filterPlayers()" placeholder="Filter by name...">
+        <select id="position-filter" onchange="filterPlayers()">
+            <option value="">All Positions</option>
+        </select>
+        <select id="team-filter" onchange="filterPlayers()">
+            <option value="">All Teams</option>
+        </select>
         <button onclick="resetDrafted()">Reset Draft</button>
     </div>
     <table id="player-table">

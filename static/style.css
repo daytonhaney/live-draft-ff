@@ -37,3 +37,8 @@ tr:hover {
     text-decoration: line-through;
     opacity: 0.6;
 }
+
+#filter-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
