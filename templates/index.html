@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Test</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button onclick="resetDrafted()">Reset Draft</button>
+    </div>
+    <table id="player-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+            <tr class="player-row" ondblclick="toggleDrafted(this)">
+                <td>{{ player.rank }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.position }}</td>
+                <td>{{ player.team }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
