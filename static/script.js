@@ -12,6 +12,21 @@ let hideDrafted = false;
 const teamCount = 12;
 const rosterLimit = 15;
 const roundCount = 15;
+const themeStorageKey = "draftBoardTheme";
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  const themeToggle = document.getElementById("theme-toggle");
+  if (!themeToggle) return;
+  const nextThemeLabel = isDark ? "light" : "dark";
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
+  themeToggle.setAttribute("aria-label", `Switch to ${nextThemeLabel} mode`);
+  themeToggle.title = `Switch to ${nextThemeLabel} mode`;
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+}
+
+applyTheme(localStorage.getItem(themeStorageKey) || "light");
 
 for (let index = 1; index <= teamCount; index++) {
   teamAssignments[`team-${index}`] = teamAssignments[`team-${index}`] || [];
@@ -39,6 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document
       .getElementById("reset-draft")
       .addEventListener("click", resetDrafted);
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const nextTheme = document.documentElement.dataset.theme === "dark"
+        ? "light"
+        : "dark";
+      localStorage.setItem(themeStorageKey, nextTheme);
+      applyTheme(nextTheme);
+    });
     document
       .getElementById("available-players")
       .addEventListener("dragover", (event) => event.preventDefault());

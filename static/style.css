@@ -2,20 +2,47 @@
     box-sizing: border-box;
 }
 
+:root {
+    color-scheme: light;
+    --page-background: #f4f4f4;
+    --text-color: #333;
+    --muted-text: #666;
+    --surface: #fff;
+    --border-color: #ddd;
+    --subtle-border: #eee;
+    --hover-background: #f5f5f5;
+    --drafted-background: #ffcccb;
+    --control-border: #ccc;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page-background: #121212;
+    --text-color: #f1f1f1;
+    --muted-text: #b6b6b6;
+    --surface: #1f1f1f;
+    --border-color: #444;
+    --subtle-border: #333;
+    --hover-background: #2b2b2b;
+    --drafted-background: #633b3b;
+    --control-border: #555;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 24px;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--page-background);
+    color: var(--text-color);
     overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1 {
     max-width: 100%;
     font-size: clamp(28px, 7vw, 36px);
     text-align: center;
-    color: #333;
+    color: var(--text-color);
     overflow-wrap: anywhere;
 }
 
@@ -29,14 +56,14 @@ table {
     margin: 20px auto;
     border-collapse: collapse;
     table-layout: fixed;
-    background-color: #fff;
+    background-color: var(--surface);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
 }
 
 th {
@@ -45,11 +72,11 @@ th {
 }
 
 tr:hover {
-    background-color: #f5f5f5;
+    background-color: var(--hover-background);
 }
 
 .drafted {
-    background-color: #FFCCCB;
+    background-color: var(--drafted-background);
     text-decoration: line-through;
     opacity: 0.6;
 }
@@ -66,7 +93,7 @@ tr:hover {
 #filter-container select,
 #filter-container button {
     padding: 10px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--control-border);
     border-radius: 4px;
     font: inherit;
 }
@@ -85,6 +112,19 @@ tr:hover {
 #filter-container button:disabled {
     background-color: #aaa;
     cursor: not-allowed;
+}
+
+#theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
 }
 
 #draft-summary,
@@ -112,7 +152,7 @@ tr:hover {
     min-width: 0;
     min-height: 150px;
     padding: 12px;
-    background: #fff;
+    background: var(--surface);
     border: 2px dashed #bbb;
     border-radius: 6px;
 }
@@ -141,7 +181,7 @@ tr:hover {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 10px;
-    color: #333;
+    color: var(--text-color);
 }
 
 .team-name {
@@ -151,20 +191,20 @@ tr:hover {
     border: 1px solid transparent;
     border-radius: 3px;
     background: transparent;
-    color: #333;
+    color: var(--text-color);
     font: inherit;
     font-weight: bold;
 }
 
 .team-name:hover,
 .team-name:focus {
-    border-color: #bbb;
-    background: #fff;
+    border-color: var(--muted-text);
+    background: var(--surface);
     outline: none;
 }
 
 .team-box h3 span {
-    color: #666;
+    color: var(--muted-text);
     font-size: 14px;
     font-weight: normal;
 }
@@ -177,7 +217,7 @@ tr:hover {
 
 .roster-list li {
     padding: 5px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--subtle-border);
     cursor: grab;
     font-size: 14px;
     overflow-wrap: anywhere;
@@ -189,12 +229,12 @@ tr:hover {
 
 #available-players p {
     text-align: center;
-    color: #666;
+    color: var(--muted-text);
 }
 
 #status {
     min-height: 20px;
-    color: #666;
+    color: var(--muted-text);
 }
 
 .player-row {
@@ -221,5 +261,16 @@ tr:hover {
 
     #available-players {
         grid-row: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-top: 64px;
+    }
+
+    #theme-toggle {
+        top: 10px;
+        right: 10px;
     }
 }
