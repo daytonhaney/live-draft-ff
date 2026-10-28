@@ -3,42 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+    <title>Fantasy Football Draft Board</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Test</h1>
+    <h1>Fantasy Football Draft Board</h1>
     <div id="filter-container">
-        <input type="text" id="name-filter" onkeyup="filterPlayers()" placeholder="Filter by name...">
-        <select id="position-filter" onchange="filterPlayers()">
+        <input type="text" id="name-filter" list="player-options" placeholder="Search players...">
+        <datalist id="player-options"></datalist>
+        <select id="position-filter">
             <option value="">All Positions</option>
         </select>
-        <select id="team-filter" onchange="filterPlayers()">
+        <select id="team-filter">
             <option value="">All Teams</option>
         </select>
-        <button onclick="resetDrafted()">Reset Draft</button>
+        <select id="draft-status-filter">
+            <option value="all">All Players</option>
+            <option value="available">Available Players</option>
+            <option value="drafted">Drafted Players</option>
+        </select>
+        <button id="hide-drafted">Hide Drafted</button>
+        <button id="undo-action" disabled>Undo</button>
+        <button id="reset-draft">Reset Draft</button>
     </div>
-    <table id="player-table">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Team</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for player in players %}
-            <tr class="player-row" ondblclick="toggleDrafted(this)">
-                <td>{{ player.rank }}</td>
-                <td>{{ player.name }}</td>
-                <td>{{ player.position }}</td>
-                <td>{{ player.team }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div id="draft-summary" aria-live="polite">0 drafted</div>
+    <div id="draft-status" aria-live="polite"></div>
+    <div id="status" aria-live="polite">Loading players...</div>
+    <main id="draft-layout">
+        <section id="left-teams" class="team-column" aria-label="Fantasy teams 1 through 6"></section>
+        <section id="available-players" aria-label="Available players">
+            <h2>Player Pool</h2>
+            <p>Drag players into a team or back here. Double-click a player to mark them drafted.</p>
+            <table id="player-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Team</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+        <section id="right-teams" class="team-column" aria-label="Fantasy teams 7 through 12"></section>
+    </main>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

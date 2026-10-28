@@ -1,3 +1,5 @@
+personal draft organizer
+
 ## how to run
 
 make sure you have python3 installed, then install the dependencies:
@@ -8,12 +10,12 @@ pip install -r requirements.txt
 
 after that, start the app:
 
-## linux + mac
+# linux + mac
 ```bash
 python3 app.py
 ```
 
-## windows
+# windows
 ```cmd
 python app.py
 ```
